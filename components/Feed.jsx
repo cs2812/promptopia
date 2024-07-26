@@ -5,11 +5,11 @@ import PromptCard from "./PromptCard";
 const Feed = () => {
   const [searchText, setSearchText] = useState();
   const [posts, setPosts] = useState([]);
-  const handleSearch = async () => {
-    if (!searchText) return;
+  const handleSearch = async (text) => {
+    if (!text) return;
     const promiseRes = await fetch("/api/search", {
       method: "POST",
-      body: JSON.stringify({ text: searchText }),
+      body: JSON.stringify({ text }),
     });
     const response = await promiseRes.json();
     if (response.data) {
@@ -20,13 +20,17 @@ const Feed = () => {
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && searchText) {
-      handleSearch();
+      handleSearch(searchText);
     }
   };
   const fetchPosts = async () => {
     const response = await fetch("/api/prompt");
     const data = await response.json();
     setPosts(data);
+  };
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
+    handleSearch(tag);
   };
   useEffect(() => {
     fetchPosts();
@@ -64,7 +68,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </div>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={posts} handleTagClick={handleTagClick} />
     </section>
   );
 };

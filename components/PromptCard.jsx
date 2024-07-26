@@ -14,6 +14,10 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(""), 3000);
   };
+  const handleProfileClick=()=>{
+    if(post.creator._id===session.user.id) return router.push("/profile");
+    router.push(`/profile/${post.creator._id}/?name=${post.creator.username}`)
+  }
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -26,7 +30,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             className="rounded-full object-contain"
           />
           {/* user */}
-          <div className="flex flex-col">
+          <div className="flex flex-col" onClick={handleProfileClick}>
             <h3 className="font-satoshi font-semibild text-gray-900">
               {post.creator.username}
             </h3>
@@ -38,7 +42,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         {/* copy text image */}
         <div className="copy_btn" onClick={handleCopy}>
           <Image
-          alt="copy_btn"
+            alt="copy_btn"
             src={
               copied === post.prompt
                 ? "/assets/icons/tick.svg"
@@ -52,7 +56,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
       <p
         className="font-inner text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick && post.tag}
+        onClick={() => handleTagClick && handleTagClick(post.tag)}
       >
         {post.tag}
       </p>
