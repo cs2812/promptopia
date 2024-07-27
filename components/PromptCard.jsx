@@ -31,9 +31,9 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           />
           {/* user */}
           <div className="flex flex-col" onClick={handleProfileClick}>
-            <h3 className="font-satoshi font-semibild text-gray-900">
+            <h1 className="font-satoshi font-semibild text-gray-900 text-xl">
               {post.creator.username}
-            </h3>
+            </h1>
             <p className="font-inter text-sm text-gray-500">
               {post.creator.email}
             </p>
