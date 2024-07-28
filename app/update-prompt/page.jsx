@@ -4,8 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Form from "@components/Form";
 
-const EditPrompt = () => {
-    const router = useRouter();
+const UpdatePrompt = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
   const [submitting, setSubmitting] = useState(false);
@@ -22,7 +22,7 @@ const EditPrompt = () => {
         tag: data.tag,
       });
     };
-    fetchPromptDetails();
+    if (promptId) fetchPromptDetails();
   }, [promptId]);
 
   const updatePrompt = async (e) => {
@@ -34,9 +34,9 @@ const EditPrompt = () => {
         method: "PATCH",
         body: JSON.stringify(post),
       });
-    //   console.log("response:", response);
+      //   console.log("response:", response);
       if (response.ok) {
-        router.push("/");
+        router.push("/profile");
       }
     } catch (error) {
       console.log("error:", error);
@@ -45,16 +45,14 @@ const EditPrompt = () => {
     }
   };
   return (
-    <div>
-      <Form
-        type="Edit"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={updatePrompt}
-      />
-    </div>
+    <Form
+      type="Edit"
+      post={post}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={updatePrompt}
+    />
   );
 };
 
-export default EditPrompt;
+export default UpdatePrompt;
