@@ -3,6 +3,7 @@ import Provider from "@components/Provider";
 import "@styles/globals.css";
 
 export const metadata = {
+  icons: { icon: "assets/icons/favicon.ico.jpg" },
   title: "Promptopia",
   description: "Discover & share AI Prompts",
 };
